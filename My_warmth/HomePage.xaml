@@ -1,0 +1,138 @@
+﻿<Page x:Class="My_warmth.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:My_warmth"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HomePage">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" HorizontalAlignment="Center">
+            <Button  Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Name="readingsButton" Click="readingsButton_Click">
+                <TextBlock TextWrapping="Wrap">Сдача показаний</TextBlock>
+            </Button>
+            <Button Width="100" Height="30" Margin="10 0 0 0" Content="Счета" HorizontalAlignment="Left" Name="ButtonReckoning" Click="BottonReckoning_Click"/>
+            <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Content="Профиль" Name="ButtonProfile" Click="ButtonProfile_Click"/>
+        </DockPanel>
+
+        <Border Grid.Row="1" Name="Profile" Visibility="Hidden"  HorizontalAlignment="Center" Width="300" Height="200" VerticalAlignment="Top" Margin="0 50 0 0" BorderThickness="0" CornerRadius="10" Background="#ffd1a6">
+                <StackPanel>
+                <Label Height="50" Content="Ваш профиль" FontSize="30"/>
+                <StackPanel Orientation="Horizontal">
+
+                    <Label Name="lFName" FontSize="15" FontWeight="Bold"/>
+                    <Label Name="lLName" FontSize="15" FontWeight="Bold"/>
+                    <Label Name="lPatr" FontSize="15" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ваш номер документа:"/>
+                    <Label Name="lContr" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ваша почта:"/>
+                    <Label Name="lEmail" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ваши бановские реквизиты:"/>
+                    <Label Name="ldetalis" FontWeight="Bold"/>
+                </StackPanel>
+                    
+
+
+                </StackPanel>
+            </Border>
+
+        <Border Name="Reckoning" Grid.Row="1" Visibility="Hidden">
+            <StackPanel   >
+                <Label Content="Ваши счета" FontSize="30"/>
+                <ListView HorizontalAlignment="Left" Height="300" Width="250" Margin="20 20 0 0" Name="lConsumption" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="3"  CornerRadius="10" BorderBrush="Black" Background="AliceBlue">
+                                    <StackPanel >
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Grid.Row="0" Grid.Column="0">
+                                                <Run Text="Потребление:"/>
+                                            </Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Grid.Row="0" Grid.Column="1">
+                                                    <Run Text="{Binding Quantity}"/>
+                                                </Label>
+                                                <Label>
+                                                    <Run Text="Гкал"/>
+                                                </Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Grid.Row="1" Grid.Column="0">
+                                                <Run Text="Дата:"/>
+                                            </Label>
+                                            <Label Grid.Row="1" Grid.Column="1">
+                                                <Run Text="{Binding Date}"/>
+                                            </Label>
+                                        </StackPanel>
+                                        <Line Stroke="#7d807e" Grid.Row="2"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" StrokeThickness="1" StrokeDashArray=" 4 5" X1="0" X2="200" Height="14"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Grid.Row="2" Grid.Column="0">
+                                                <Run Text="Сумма к оплате"/>
+                                            </Label>
+                                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                                                <Label >
+                                                    <Run Text="{Binding Sum}"/>
+                                                </Label>
+                                                <Label>
+                                                    ₽
+                                                </Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Width="100" Height="20" Name ="Pay" Margin="0 -300 0 0" Content="Оплатить" Click="Pay_Click"/>
+
+            </StackPanel>
+            </Border>
+
+        <Border Grid.Row="1" Name="Readings" Visibility="Hidden" Width="400" Height="250" BorderThickness="0" CornerRadius="10"  Background="#ffd1a6">
+                <StackPanel  HorizontalAlignment="Center">
+                <Label Content="Сдача показаний за месяц" FontSize="30"/>
+                <ComboBox Name="Meter" Visibility="Collapsed">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate >
+                            <TextBlock>
+                                <Run Text="{Binding IdMeter}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label Content="Введите показания счетчика"/>
+                <TextBox Width="200" Height="30" Name="tbReadings" HorizontalAlignment="Left"></TextBox>
+                
+                <Button Height="20" Width="100" HorizontalAlignment="Left" Margin="10 20 0 0" Content="Сдать показания" Name="buttonReadings" Click="buttonReadings_Click"/>
+            </StackPanel>
+                </Border>
+
+    </Grid>
+</Page>
